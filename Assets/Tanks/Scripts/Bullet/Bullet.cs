@@ -6,6 +6,9 @@ public class Bullet : MonoBehaviour
 {
 	public ParticleSystem explosionFX;
 	public int bounces = 2;
+
+    public PlayerControl owner;
+
 	public float damage = 1.0f;
 
 	Rigidbody rb;
@@ -56,7 +59,7 @@ public class Bullet : MonoBehaviour
 
 		if (pHealth != null) {
 			Explode ();
-			pHealth.TakeDamage (damage);
+			pHealth.TakeDamage (damage, owner);
 		}
 
 		if (bounces <= 0) {

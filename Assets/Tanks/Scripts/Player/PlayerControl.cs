@@ -8,6 +8,8 @@ public class PlayerControl : NetworkBehaviour
 {
 	public GameObject spawnFX;
 
+    public int score;
+
 	PlayerMotor pMotor;
 	PlayerShoot pShoot;
 	PlayerHealth pHealth;

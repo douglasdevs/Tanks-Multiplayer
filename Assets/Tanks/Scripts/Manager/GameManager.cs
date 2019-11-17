@@ -18,6 +18,10 @@ public class GameManager : NetworkBehaviour
 	[SyncVar]//Current amount players connected until now
 	public int playerCountConnected = 0;
 
+    public List<PlayerControl> allPlayers;
+    public List<Text> nameText;
+    public List<Text> playerScoreText;
+
 
 	void Awake ()
 	{
@@ -35,7 +39,7 @@ public class GameManager : NetworkBehaviour
 		StartCoroutine (GameLoopRoutine ());
 	}
 
-	IEnumerator GameLoopRoutine ()
+    IEnumerator GameLoopRoutine ()
 	{
 		yield return EnterLobby ();
 		yield return PlayGame ();
@@ -56,7 +60,8 @@ public class GameManager : NetworkBehaviour
 	IEnumerator PlayGame ()
 	{
 		EnablePlayers ();
-		messageText.gameObject.SetActive (false);
+        UpdateScore();
+        messageText.gameObject.SetActive (false);
 		yield return null;
 	}
 
@@ -83,10 +88,34 @@ public class GameManager : NetworkBehaviour
 		SetPlayerState (false);
 	}
 
-	public void AddPlayer ()
+	public void AddPlayer (PlayerSetup pS)
 	{
 		if (playerCountConnected < maxPlayersForMatch) {
+            allPlayers.Add(pS.GetComponent<PlayerControl>());
 			playerCountConnected++;
 		}
 	}
+
+    [ClientRpc]
+    void RpcUpdateScore(int[] playerScores)
+    {
+        for (int i = 0; i < playerCountConnected; i++)
+        {
+            playerScoreText[i].text = playerScores[i].ToString();
+        }
+    }
+
+    public void UpdateScore()
+    {
+        if (isServer)
+        {
+            int[] scores = new int[playerCountConnected];
+            for (int i = 0; i < playerCountConnected; i++)
+            {
+                scores[i] = allPlayers[i].score;
+            }
+
+            RpcUpdateScore(scores);
+        }
+    }
 }
