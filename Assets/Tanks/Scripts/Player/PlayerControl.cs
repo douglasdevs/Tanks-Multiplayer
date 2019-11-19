@@ -8,19 +8,28 @@ public class PlayerControl : NetworkBehaviour
 {
 	public GameObject spawnFX;
 
-    public int score;
+	public int score;
 
 	PlayerMotor pMotor;
 	PlayerShoot pShoot;
 	PlayerHealth pHealth;
+	NetworkStartPosition[] spawnPoints;
 
 	public float respawnTime = 3.0f;
+
+	Vector3 originalPosition;
 
 	void Start ()
 	{
 		pMotor = GetComponent<PlayerMotor> ();
 		pShoot = GetComponent<PlayerShoot> ();
 		pHealth = GetComponent<PlayerHealth> ();
+	}
+
+	public override void OnStartLocalPlayer ()
+	{
+		spawnPoints = FindObjectsOfType (typeof(NetworkStartPosition)) as NetworkStartPosition[];
+		originalPosition = transform.position;
 	}
 
 	void Update ()
@@ -63,11 +72,57 @@ public class PlayerControl : NetworkBehaviour
 
 	IEnumerator Respawn ()
 	{
-		transform.position = Vector3.zero;
+		SpawnPoint oldSpawn = GetNearestSpawnPoint ();
+		if (oldSpawn != null) {
+			oldSpawn.isOccupied = false;
+		}
+
+		transform.position = GetRandomSpawnPosition ();
 		pMotor.GetRigidbody ().velocity = Vector3.zero;
 		yield return new WaitForSeconds (respawnTime);
 		pHealth.Reset ();
 		GameObject newSpawnFX = Instantiate (spawnFX, transform.position, Quaternion.identity);
 		Destroy (newSpawnFX, 3.0f);
+	}
+
+	SpawnPoint GetNearestSpawnPoint ()
+	{
+		Collider[] triggerColliders = Physics.OverlapSphere (transform.position, 3.0f, Physics.AllLayers, QueryTriggerInteraction.Collide);
+		foreach (var c in triggerColliders) {
+			SpawnPoint spawnPoint = c.GetComponent<SpawnPoint> ();
+			if (spawnPoint != null) {
+				return spawnPoint;
+			}
+		}
+
+		return null;
+	}
+
+	Vector3 GetRandomSpawnPosition ()
+	{
+		if (spawnPoints != null) {
+			bool foundSpawner = false;
+			Vector3 newStartPosition = new Vector3 ();
+			float timeOut = Time.time + 2.0f;
+
+			while (!foundSpawner) {
+				NetworkStartPosition startPoint = spawnPoints [Random.Range (0, spawnPoints.Length)];
+				SpawnPoint spawnPoint = startPoint.GetComponent<SpawnPoint> ();
+
+				if (!spawnPoint.isOccupied) {
+					newStartPosition = startPoint.transform.position;
+					foundSpawner = true;
+				}
+
+				if (Time.time > timeOut) {
+					newStartPosition = originalPosition;
+					foundSpawner = true;
+				}
+			}
+
+			return newStartPosition;
+		}
+
+		return originalPosition;
 	}
 }

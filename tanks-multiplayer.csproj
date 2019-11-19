@@ -258,6 +258,7 @@
     <Compile Include="Assets\Tanks\Scripts\Player\PlayerMotor.cs" />
     <Compile Include="Assets\Tanks\Scripts\Player\PlayerSetup.cs" />
     <Compile Include="Assets\Tanks\Scripts\Player\PlayerShoot.cs" />
+    <Compile Include="Assets\Tanks\Scripts\SpawnPoint.cs" />
     <Compile Include="Assets\Tanks\Scripts\Utility\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
