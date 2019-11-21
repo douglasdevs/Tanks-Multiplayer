@@ -404,7 +404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAYER 1
+  m_Text: 
 --- !u!222 &53413293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -466,6 +466,11 @@ MonoBehaviour:
   - {fileID: 1652818642}
   - {fileID: 2124888807}
   - {fileID: 1865272465}
+  playerColors:
+  - {r: 0.034482718, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0.37931037, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.9448277, g: 1, b: 0, a: 1}
 --- !u!4 &127193209
 Transform:
   m_ObjectHideFlags: 0
@@ -2208,7 +2213,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAYER 3
+  m_Text: 
 --- !u!222 &1575613511
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2445,7 +2450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 
 --- !u!222 &1652818643
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2885,7 +2890,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 
 --- !u!222 &1865272466
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3347,7 +3352,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 
 --- !u!222 &2124888808
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3436,7 +3441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAYER 2
+  m_Text: 
 --- !u!222 &2138034182
 CanvasRenderer:
   m_ObjectHideFlags: 0
