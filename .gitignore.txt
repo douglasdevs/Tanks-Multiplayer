@@ -22,6 +22,11 @@
 # Visual Studio cache directory
 .vs/
 
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
 # Gradle cache directory
 .gradle/
 
