@@ -12,7 +12,8 @@ public class PlayerControl : NetworkBehaviour
 
 	PlayerMotor pMotor;
 	PlayerShoot pShoot;
-	PlayerHealth pHealth;
+	public PlayerHealth pHealth;
+    public PlayerSetup pSetup;
 	NetworkStartPosition[] spawnPoints;
 
 	public float respawnTime = 3.0f;
@@ -24,6 +25,7 @@ public class PlayerControl : NetworkBehaviour
 		pMotor = GetComponent<PlayerMotor> ();
 		pShoot = GetComponent<PlayerShoot> ();
 		pHealth = GetComponent<PlayerHealth> ();
+        pSetup = GetComponent<PlayerSetup>();
 	}
 
 	public override void OnStartLocalPlayer ()

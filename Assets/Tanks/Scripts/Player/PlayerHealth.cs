@@ -18,21 +18,10 @@ public class PlayerHealth : NetworkBehaviour
 	[SyncVar (hook = "UpdateHealthBar")]
 	float currentHealth;
 
-	//	void Awake ()
-	//	{
-	//		healthBar.fillAmount = maxHealth / 100.0f;
-	//	}
-
 	// Use this for initialization
 	void Start ()
 	{
 		currentHealth = maxHealth;
-	}
-
-	// Update is called once per frame
-	void Update ()
-	{
-
 	}
 
 	public void TakeDamage (float damage, PlayerControl pc = null)
@@ -46,7 +35,6 @@ public class PlayerHealth : NetworkBehaviour
         }
 
 		currentHealth -= damage;
-//		UpdateHealthBar (currentHealth);
 
 		if (currentHealth <= 0.0f && !isDead) {
             if (lastAttacker != null) {
